@@ -1,6 +1,6 @@
 const express=require('express');
 const ProductController=require('../controllers/ProductController')
-
+const UserController=require('../controllers/UserController')
 
 
 
@@ -19,5 +19,12 @@ router.get('/ProductListByKeyword/:Keyword',ProductController.ProductListByKeywo
 router.get('/ProductListByRemark/:Remark',ProductController.ProductListByRemark)
 router.get('/ProductDetails/:ProductID',ProductController.ProductDetails)
 router.get('/ProductReviewList/:ProductID',ProductController.ProductReviewList)
+
+
+
+//user
+
+router.get('/UserOTP/:email',UserController.UserOTP)
+router.get('/VerifyLogin/:email/:otp',UserController.VerifyLogin)
 
 module.exports=router;

@@ -30,8 +30,8 @@ exports.UserLogout=async (req,res)=>{
     return res.status(200).json({status:"success"})
 }
 
-
 exports.CreateProfile=async (req,res)=>{
+    console.log(req)
     let result=await SaveProfileService(req)
     return res.status(200).json(result)
 }

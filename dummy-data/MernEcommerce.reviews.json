@@ -1,1 +1,16 @@
-[]
+[
+    {
+      "productID": "mongoose.Types.ObjectId()",
+      "userID":"mongoose.Types.ObjectId()",
+      "des": "This is a great product!",
+      "rating": "5"
+    },
+    {
+      "productID": "mongoose.Types.ObjectId()",
+      "userID": "mongoose.Types.ObjectId()",
+      "des": "Not satisfied with the quality.",
+      "rating": "2"
+    }
+    
+  ]
+  

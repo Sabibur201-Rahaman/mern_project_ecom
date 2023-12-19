@@ -18,7 +18,7 @@ const UserOTPService = async (req) => {
 
          return {status:"success", message:"6 Digit OTP has been send"}
      }catch (e) {
-         return {status:"fail", message:"Something Went Wrong"}
+         return {status:"fail", message:"is there Something Went Wrong"}
      }
 }
 
@@ -34,7 +34,7 @@ const VerifyOTPService = async (req) => {
 
             // User ID Read
             let user_id=await UserModel.find({email:email,otp:otp}).select('_id');
-
+                console.log(user_id)
             // User Token Create
             let token=EncodeToken(email,user_id[0]['_id'].toString())  //  query
             console.log(token)
@@ -56,24 +56,19 @@ const VerifyOTPService = async (req) => {
 
 }
 
-
-
-
 const SaveProfileService = async (req) => {
    try {
        let user_id=req.headers.user_id;
+    //    console.log(user_id[0])
+       console.log(req.headers)
        let reqBody=req.body;
        reqBody.userID=user_id;
        await ProfileModel.updateOne({userID:user_id},{$set:reqBody},{upsert:true})
        return {status:"success", message:"Profile Save Success"}
    }catch (e) {
-       return {status:"fail", message:"Something Went Wrong"}
+       return {status:"fail", message:" there is Something Went Wrong"}
    }
 }
-
-
-
-
 
 const ReadProfileService = async (req) => {
     try {

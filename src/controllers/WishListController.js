@@ -1,7 +1,7 @@
 const {WishListService,
     SaveWishListService,
     RemoveWishListService,}=require("../services/WishListServices")
-exports.WishList=async()=>{
+exports.WishList=async(req,res)=>{
     let result=await WishListService(req)
         return res.status(200).json(result)
 }

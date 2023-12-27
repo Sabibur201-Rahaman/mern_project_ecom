@@ -3,6 +3,7 @@ const ProductController=require('../controllers/ProductController')
 const UserController=require('../controllers/UserController')
 const AuthVerification=require('../middlewares/AuthVerification')
 const WishListController=require("../controllers/WishListController")
+const CartListController=require("../controllers/CartListController")
 
 
 const router=express.Router();
@@ -27,12 +28,20 @@ router.get('/ProductReviewList/:ProductID',ProductController.ProductReviewList)
 
 router.get('/UserOTP/:email',UserController.UserOTP)
 router.get('/VerifyLogin/:email/:otp',UserController.VerifyLogin)
-router.get('/UserLogout',AuthVerification,UserController.UserLogout)
+router.get('/UserLogout',UserController.UserLogout)
 router.post('/CreateProfile',AuthVerification,UserController.CreateProfile)
-router.post('/UpdateProfile',AuthVerification,UserController.UpdateProfile)
-router.get('/ReadProfile',AuthVerification,UserController.ReadProfile)
+router.patch('/UpdateProfile/:id',AuthVerification,UserController.UpdateProfile)
+router.get('/ReadProfile/:id',AuthVerification,UserController.ReadProfile)
 
 //wish
 router.post('/SaveWishList',AuthVerification,WishListController.SaveWishList)
+router.delete('/RemoveWishList',AuthVerification,WishListController.RemoveWishList)
+router.get('/WishList',AuthVerification,WishListController.WishList)
+
+//Cart
+router.post('/CreateCartList/:userID',CartListController.CreateCartList)
+router.get('/CartList',CartListController.CartList)
+router.delete('/RemoveCartList/:_id',AuthVerification,CartListController.RemoveCartList)
+router.patch('/UpdateCartList/:cartId',AuthVerification,CartListController.UpdateCartList)
 
 module.exports=router;

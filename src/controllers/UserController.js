@@ -1,4 +1,4 @@
-const {UserOTPService,VerifyOTPService,SaveProfileService,ReadProfileService} = require("../services/UserServices");
+const {UserOTPService,VerifyOTPService,SaveProfileService,ReadProfileService,UpdateProfileService} = require("../services/UserServices");
 
 exports.UserOTP=async (req,res)=>{
     let result=await UserOTPService(req)
@@ -38,7 +38,7 @@ exports.CreateProfile=async (req,res)=>{
 
 
 exports.UpdateProfile=async (req,res)=>{
-    let result=await SaveProfileService(req)
+    let result=await UpdateProfileService(req)
     return res.status(200).json(result)
 }
 

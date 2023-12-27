@@ -46,7 +46,7 @@ const VerifyOTPService = async (req) => {
 
         }
         else{
-            return {status:"fail", message:"Invalid OTP"}
+            return {status:"fail", message:"invalid OTP"}
         }
 
     }catch (e) {
@@ -58,23 +58,48 @@ const VerifyOTPService = async (req) => {
 
 const SaveProfileService = async (req) => {
    try {
-       let user_id=req.headers.user_id;
-    //    console.log(user_id[0])
-       console.log(req.headers)
-       let reqBody=req.body;
-       reqBody.userID=user_id;
-       await ProfileModel.updateOne({userID:user_id},{$set:reqBody},{upsert:true})
-       return {status:"success", message:"Profile Save Success"}
+    const user = await UserModel.create(req.body);
+    console.log(user)
+    return { status: "success", message: "Profile Save Success" }
    }catch (e) {
        return {status:"fail", message:" there is Something Went Wrong"}
    }
 }
+const UpdateProfileService = async (req) => {
+    try {
+        // Assuming req.body contains the filter criteria and the update fields
+        const user = await UserModel.findById(req.params.id);
+
+        if (!user) {
+            return { status: "fail", message: "No matching user found" };
+        }
+
+        const updatedUser = await UserModel.findOneAndUpdate(
+            { _id: req.params.id },
+            req.body, // Use the entire request body for the update
+            { new: true }
+        );
+
+        if (updatedUser) {
+            return { status: "success", message: "Profile Save Success", user: updatedUser };
+        } else {
+            return { status: "fail", message: "No changes applied" };
+        }
+    } catch (e) {
+        console.error(e);
+        return { status: "fail", message: "Something went wrong" };
+    }
+};
 
 const ReadProfileService = async (req) => {
     try {
-        let user_id=req.headers.user_id;
-        let result= await ProfileModel.find({userID:user_id})
-        return {status:"success", data:result}
+        const result = await UserModel.findById(req.params.id);
+        if (!result) {
+            return { status: "fail", message: "No matching user found" };
+        }
+        const updatedResult=await UserModel.findOne({_id:req.params.id})
+        // let result= await UserModel.find({userID:id})
+        return {status:"success", data:updatedResult}
     }catch (e) {
         return {status:"fail", message:"Something Went Wrong"}
     }
@@ -85,6 +110,7 @@ module.exports={
     UserOTPService,
     VerifyOTPService,
     SaveProfileService,
-    ReadProfileService
+    ReadProfileService,
+    UpdateProfileService
 }
 

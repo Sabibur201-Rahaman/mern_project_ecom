@@ -13,6 +13,7 @@ exports.DecodeToken=(token)=>{
         return jwt.verify(token,KEY)
     }
     catch (e) {
+        console.log(e)
         return null
     }
 }

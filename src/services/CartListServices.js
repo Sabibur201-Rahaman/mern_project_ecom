@@ -4,8 +4,8 @@ const ObjectID = mongoose.Types.ObjectId;
 const CartListService = async (req) => {
   try {
     let user_id = new ObjectID(req.headers.user_id);
+    // console.log(user_id)
     let matchStage = { $match: { userID: user_id } };
-
     let JoinStageProduct = {
       $lookup: {
         from: "products",
@@ -60,7 +60,7 @@ const CartListService = async (req) => {
       unwindCategoryStage,
       projectionStage,
     ]);
-
+    
     return { status: "success", data: data };
   } catch (e){
     console.log(e)

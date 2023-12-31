@@ -4,7 +4,7 @@ const UserController=require('../controllers/UserController')
 const AuthVerification=require('../middlewares/AuthVerification')
 const WishListController=require("../controllers/WishListController")
 const CartListController=require("../controllers/CartListController")
-
+const InvoiceController=require("../controllers/InvoiceController")
 
 const router=express.Router();
 
@@ -41,7 +41,22 @@ router.get('/WishList',AuthVerification,WishListController.WishList)
 //Cart
 router.post('/CreateCartList/:userID',CartListController.CreateCartList)
 router.get('/CartList',CartListController.CartList)
-router.delete('/RemoveCartList/:_id',AuthVerification,CartListController.RemoveCartList)
+router.delete('/RemoveCartList/:cartId',AuthVerification,CartListController.RemoveCartList)
 router.patch('/UpdateCartList/:cartId',AuthVerification,CartListController.UpdateCartList)
+
+// Invoice & Payment
+router.get('/CreateInvoice',AuthVerification,InvoiceController.CreateInvoice)
+
+router.get('/InvoiceList',AuthVerification,InvoiceController.InvoiceList)
+router.get('/InvoiceProductList/:invoice_id',AuthVerification,InvoiceController.InvoiceProductList)
+
+
+
+
+
+router.post('/PaymentSuccess/:trxID',InvoiceController.PaymentSuccess)
+router.post('/PaymentCancel/:trxID',InvoiceController.PaymentCancel)
+router.post('/PaymentFail/:trxID',InvoiceController.PaymentFail)
+router.post('/PaymentIPN/:trxID',InvoiceController.PaymentIPN)
 
 module.exports=router;

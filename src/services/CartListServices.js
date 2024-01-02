@@ -99,10 +99,12 @@ const UpdateCartListService = async (req) => {
     let cartId = req.params.cartId;
     let reqBody = req.body;
     reqBody = req.body;
-    await CartModel.updateOne(
-      { _id: cartId, userId: user_id },
+    const result=await CartModel.updateOne(
+      
+      { _id: cartId },
       { $set: reqBody }
     );
+    console.log(result)
     return { status: "success", message: "CartList update success" };
   } catch (e) {
     return { status: "fail", message: "something went wrong" };
@@ -112,7 +114,7 @@ const UpdateCartListService = async (req) => {
 const RemoveCartListService = async (req) => {
   try {
     let user_id = req.headers.user_id;
-    let cartID = req.params._id;
+    let cartID = req.params.cartId
 
     let reqBody = req.body;
     reqBody.userID = user_id;

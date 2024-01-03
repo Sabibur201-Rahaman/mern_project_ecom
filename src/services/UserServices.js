@@ -18,7 +18,7 @@ const UserOTPService = async (req) => {
 
          return {status:"success", message:"6 Digit OTP has been send"}
      }catch (e) {
-         return {status:"fail", message:"is there Something Went Wrong"}
+         return {status:"fail", message:"there is Something Went Wrong"}
      }
 }
 
@@ -37,7 +37,7 @@ const VerifyOTPService = async (req) => {
                 console.log(user_id)
             // User Token Create
             let token=EncodeToken(email,user_id[0]['_id'].toString())  //  query
-            console.log(token)
+            console.log("token",token)
 
             // OTP Code Update To 0
             await UserModel.updateOne({email:email},{$set:{otp:"0"}})
@@ -58,6 +58,9 @@ const VerifyOTPService = async (req) => {
 
 const SaveProfileService = async (req) => {
    try {
+    // let user_id=req.headers.user_id;
+    // let reqBody=req.body
+    // reqBody.userID=user_id
     const user = await UserModel.create(req.body);
     console.log(user)
     return { status: "success", message: "Profile Save Success" }

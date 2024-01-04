@@ -16,7 +16,8 @@ const path = require("path");
 
 
 // let URL="mongodb+srv://'e_commerce:sASNH0X4Yn5h9PWus@cluster0.7uslu.mongodb.net/MernEcommerce?retryWrites=true&w=majority";
-let url = "mongodb+srv://sabiburrahaman720:Ca7tqSRpoj0Oa4bu@cluster0.kkr5zm9.mongodb.net/?retryWrites=true&w=majority"
+// let url = "mongodb+srv://sabiburrahaman720:Ca7tqSRpoj0Oa4bu@cluster0.kkr5zm9.mongodb.net/?retryWrites=true&w=majority"
+let url="mongodb+srv://afnanferdousi550:uxy7MqMgqPwRunRL@cluster0.4jtzkey.mongodb.net/cow-db?retryWrites=true&w=majority"
 // let option={user:'testuser7777',pass:"testuser7777",autoIndex:true};
 // let option={user:'e_commerce',pass:"sASNH0X4Yn5h9PWu",autoIndex:true};
 mongoose.connect(url).then((res)=>{

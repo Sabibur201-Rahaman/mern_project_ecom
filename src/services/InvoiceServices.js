@@ -24,7 +24,7 @@ const CreateInvoiceService = async (req) => {
     let JoinStageProduct={$lookup:{from:"products",localField:"productID",foreignField:"_id",as:"product"}}
     let unwindStage={$unwind:"$product"}
     let CartProducts=await CartModel.aggregate([matchStage,JoinStageProduct,unwindStage])
-
+    // console.log(CartProducts)
     let totalAmount=0;
     CartProducts.forEach((element)=>{
         let price;
@@ -38,14 +38,14 @@ const CreateInvoiceService = async (req) => {
 
     let vat=totalAmount* 0.05 // 5% Vat
     let payable=totalAmount+vat;
-
+// console.log(payable)
 
 
 
 // =============Step 02: Prepare  Customer Details & Shipping Details=====================================================================================
 
     let Profile=await UserModel.aggregate([userMatchStage]);
-    console.log(Profile)
+    console.log("profile:::",Profile)
     let cus_details=`Name:${Profile[0]['cus_name']}, Email:${cus_email}, Address:${Profile[0]['cus_add']}, Phone:${Profile[0]['cus_phone']}`;
     let ship_details=`Name:${Profile[0]['ship_name']}, City:${Profile[0]['ship_city']}, Address:${Profile[0]['ship_add']}, Phone:${Profile[0]['ship_phone']}`;
 
@@ -97,7 +97,7 @@ const CreateInvoiceService = async (req) => {
 
 
 //=============Step 06: Remove Carts=====================================================================================
-        await  CartModel.deleteMany({userID:user_id});
+        // await  CartModel.deleteMany({userID:user_id});
 
 
 
@@ -119,36 +119,34 @@ const CreateInvoiceService = async (req) => {
     form.append('cancel_url',`${PaymentSettings[0]['cancel_url']}/${tran_id}`)
     form.append('ipn_url',`${PaymentSettings[0]['ipn_url']}/${tran_id}`)
 
-    form.append('cus_name',Profile[0]['cus_name'])
-    form.append('cus_email',cus_email)
-    form.append('cus_add1',Profile[0]['cus_add'])
-    form.append('cus_add2',Profile[0]['cus_add'])
-    form.append('cus_city',Profile[0]['cus_city'])
-    form.append('cus_state',Profile[0]['cus_state'])
-    form.append('cus_postcode',Profile[0]['cus_postcode'])
-    form.append('cus_country',Profile[0]['cus_country'])
-    form.append('cus_phone',Profile[0]['cus_phone'])
-    form.append('cus_fax',Profile[0]['cus_phone'])
+    // form.append('cus_name',Profile[0]['cus_name'])
+    // form.append('cus_email',cus_email)
+    // form.append('cus_add1',Profile[0]['cus_add'])
+    // form.append('cus_add2',Profile[0]['cus_add'])
+    // form.append('cus_city',Profile[0]['cus_city'])
+    // form.append('cus_state',Profile[0]['cus_state'])
+    // form.append('cus_postcode',Profile[0]['cus_postcode'])
+    // form.append('cus_country',Profile[0]['cus_country'])
+    // form.append('cus_phone',Profile[0]['cus_phone'])
+    // form.append('cus_fax',Profile[0]['cus_phone'])
 
-    form.append('shipping_method',"YES")
-    form.append('ship_name',Profile[0]['ship_name'])
-    form.append('ship_add1',Profile[0]['ship_add'])
-    form.append('ship_add2',Profile[0]['ship_add'])
-    form.append('ship_city',Profile[0]['ship_city'])
-    form.append('ship_state',Profile[0]['ship_state'])
-    form.append('ship_country',Profile[0]['ship_country'])
-    form.append('ship_postcode',Profile[0]['ship_postcode'])
+    // form.append('shipping_method',"YES")
+    // form.append('ship_name',Profile[0]['ship_name'])
+    // form.append('ship_add1',Profile[0]['ship_add'])
+    // form.append('ship_add2',Profile[0]['ship_add'])
+    // form.append('ship_city',Profile[0]['ship_city'])
+    // form.append('ship_state',Profile[0]['ship_state'])
+    // form.append('ship_country',Profile[0]['ship_country'])
+    // form.append('ship_postcode',Profile[0]['ship_postcode'])
 
-    form.append('product_name','According Invoice')
-    form.append('product_category','According Invoice')
-    form.append('product_profile','According Invoice')
-    form.append('product_amount','According Invoice')
+    // form.append('product_name','According Invoice')
+    // form.append('product_category','According Invoice')
+    // form.append('product_profile','According Invoice')
+    // form.append('product_amount','According Invoice')
 
-    let SSLRes=await axios.post(PaymentSettings[0]['initial_url'],form);
+    // let SSLRes=await axios.post(PaymentSettings[0]['initial_url'],form);  
 
-    return {status:"success",data:invoice_id}
-
-
+    return {status:"success",data:PaymentSettings}
 }
 
 

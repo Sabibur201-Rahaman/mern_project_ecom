@@ -5,6 +5,7 @@ const AuthVerification=require('../middlewares/AuthVerification')
 const WishListController=require("../controllers/WishListController")
 const CartListController=require("../controllers/CartListController")
 const InvoiceController=require("../controllers/InvoiceController")
+const FeaturesController=require("../controllers/FeaturesController")
 
 const router=express.Router();
 
@@ -58,5 +59,9 @@ router.post('/PaymentSuccess/:trxID',InvoiceController.PaymentSuccess)
 router.post('/PaymentCancel/:trxID',InvoiceController.PaymentCancel)
 router.post('/PaymentFail/:trxID',InvoiceController.PaymentFail)
 router.post('/PaymentIPN/:trxID',InvoiceController.PaymentIPN)
+
+//Features
+router.get('/FeatureList',FeaturesController.FeatureList)
+
 
 module.exports=router;

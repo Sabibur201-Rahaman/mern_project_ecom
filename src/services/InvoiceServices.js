@@ -119,30 +119,30 @@ const CreateInvoiceService = async (req) => {
     form.append('cancel_url',`${PaymentSettings[0]['cancel_url']}/${tran_id}`)
     form.append('ipn_url',`${PaymentSettings[0]['ipn_url']}/${tran_id}`)
 
-    // form.append('cus_name',Profile[0]['cus_name'])
-    // form.append('cus_email',cus_email)
-    // form.append('cus_add1',Profile[0]['cus_add'])
-    // form.append('cus_add2',Profile[0]['cus_add'])
-    // form.append('cus_city',Profile[0]['cus_city'])
-    // form.append('cus_state',Profile[0]['cus_state'])
-    // form.append('cus_postcode',Profile[0]['cus_postcode'])
-    // form.append('cus_country',Profile[0]['cus_country'])
-    // form.append('cus_phone',Profile[0]['cus_phone'])
-    // form.append('cus_fax',Profile[0]['cus_phone'])
+    form.append('cus_name',Profile[0]['cus_name'])
+    form.append('cus_email',cus_email)
+    form.append('cus_add1',Profile[0]['cus_add'])
+    form.append('cus_add2',Profile[0]['cus_add'])
+    form.append('cus_city',Profile[0]['cus_city'])
+    form.append('cus_state',Profile[0]['cus_state'])
+    form.append('cus_postcode',Profile[0]['cus_postcode'])
+    form.append('cus_country',Profile[0]['cus_country'])
+    form.append('cus_phone',Profile[0]['cus_phone'])
+    form.append('cus_fax',Profile[0]['cus_phone'])
 
-    // form.append('shipping_method',"YES")
-    // form.append('ship_name',Profile[0]['ship_name'])
-    // form.append('ship_add1',Profile[0]['ship_add'])
-    // form.append('ship_add2',Profile[0]['ship_add'])
-    // form.append('ship_city',Profile[0]['ship_city'])
-    // form.append('ship_state',Profile[0]['ship_state'])
-    // form.append('ship_country',Profile[0]['ship_country'])
-    // form.append('ship_postcode',Profile[0]['ship_postcode'])
+    form.append('shipping_method',"YES")
+    form.append('ship_name',Profile[0]['ship_name'])
+    form.append('ship_add1',Profile[0]['ship_add'])
+    form.append('ship_add2',Profile[0]['ship_add'])
+    form.append('ship_city',Profile[0]['ship_city'])
+    form.append('ship_state',Profile[0]['ship_state'])
+    form.append('ship_country',Profile[0]['ship_country'])
+    form.append('ship_postcode',Profile[0]['ship_postcode'])
 
-    // form.append('product_name','According Invoice')
-    // form.append('product_category','According Invoice')
-    // form.append('product_profile','According Invoice')
-    // form.append('product_amount','According Invoice')
+    form.append('product_name','According Invoice')
+    form.append('product_category','According Invoice')
+    form.append('product_profile','According Invoice')
+    form.append('product_amount','According Invoice')
 
     // let SSLRes=await axios.post(PaymentSettings[0]['initial_url'],form);  
 
@@ -151,7 +151,7 @@ const CreateInvoiceService = async (req) => {
 
 
 
-/*
+
 const PaymentSuccessService = async (req)=>{
     try{
         let trxID=req.params.trxID;
@@ -235,16 +235,16 @@ const InvoiceProductListService = async (req)=>{
         return {status:"fail", message:"Something Went Wrong"}
     }
 }
-*/
+
 
 
 
 module.exports={
     CreateInvoiceService,
-    // PaymentFailService,
-    // PaymentCancelService,
-    // PaymentIPNService,
-    // PaymentSuccessService,
-    // InvoiceListService,
-    // InvoiceProductListService
+    PaymentFailService,
+    PaymentCancelService,
+    PaymentIPNService,
+    PaymentSuccessService,
+    InvoiceListService,
+    InvoiceProductListService
 }

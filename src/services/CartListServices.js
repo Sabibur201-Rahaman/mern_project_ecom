@@ -50,17 +50,17 @@ const CartListService = async (req) => {
       },
     };
 
-    let data = await CartModel.aggregate([
-      matchStage,
-      JoinStageProduct,
-      unwindProductStage,
-      JoinStageBrand,
-      unwindBrandStage,
-      JoinStageCategory,
-      unwindCategoryStage,
-      projectionStage,
-    ]);
-    
+    let data = await CartModel.find(
+      // matchStage,
+      // JoinStageProduct,
+      // unwindProductStage,
+      // JoinStageBrand,
+      // unwindBrandStage,
+      // JoinStageCategory,
+      // unwindCategoryStage,
+      // projectionStage,
+    );
+    console.log(data)
     return { status: "success", data: data };
   } catch (e){
     console.log(e)

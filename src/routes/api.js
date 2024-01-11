@@ -63,5 +63,9 @@ router.post('/PaymentIPN/:trxID',InvoiceController.PaymentIPN)
 //Features
 router.get('/FeatureList',FeaturesController.FeatureList)
 
+//Review
+
+router.post('/CreateReview',AuthVerification,ProductController.CreateReview)
+
 
 module.exports=router;

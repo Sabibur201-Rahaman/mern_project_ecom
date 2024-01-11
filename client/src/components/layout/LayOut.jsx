@@ -1,12 +1,12 @@
 import React from 'react'
-import footer from './Footer.jsx'
-import appNavbar from './AppNavbar.jsx'
+import Footer from './Footer.jsx'
+import AppNavbar from './AppNavbar.jsx'
 function LayOut(props) {
   return (
     <div>
-      {/* <appNavbar/> */}
+      <AppNavbar/>
     {props.children}
-    <footer/>
+    <Footer/>
     </div>
   )
 }

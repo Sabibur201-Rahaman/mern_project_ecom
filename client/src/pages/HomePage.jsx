@@ -1,32 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProductStore from '../store/ProductStore'
-import AppNavBar from '../components/layout/AppNavbar';
-import Footer from '../components/layout/Footer';
-import SliderSkeleton from '../skeleton/SliderSkeleton';
-import LayOut from '../components/layout/LayOut';
-import FeaturesSkeleton from '../skeleton/FeaturesSkeleton';
-import CategoriesSkeleton from '../skeleton/CategoriesSkeleton';
-import ProductsSkeleton from '../skeleton/ProductsSkeleton';
+import FeatureStore from '../store/FeatureStore'
+import Brands from '../components/product/brands'
+import Categories from '../components/product/categories'
+import Products from '../components/product/products'
+import Slider from '../components/product/slider'
+import Feature from '../components/feature/feature'
+import LayOut from '../components/layout/LayOut'
 function HomePage() {
-  const { BrandList, BrandListRequest } = ProductStore()
-  // const { BrandList = [], BrandListRequest = () => {} } = productStore() || {}
+  const { BrandList, BrandListRequest,SliderListRequest,CategoryListRequest,ListByRemarkRequest} = ProductStore()
+  const {FeatureListRequest}=FeatureStore()
 
-  // useEffect(() => {
-  //   (async () => {
-      // await BrandListRequest()
-  //   })()
-  // }, [])
+
+   useEffect(() => {
+   (async () => {
+    await SliderListRequest()
+    await FeatureListRequest()
+    await CategoryListRequest()
+    await ListByRemarkRequest("new")
+     await BrandListRequest()
+     
+  })()
+  }, [])
   
   return (
     <LayOut>
       {/* <p>{JSON.stringify(BrandList)}</p> */}
-      
-      <AppNavBar/>
-      <SliderSkeleton/>
-      <FeaturesSkeleton/>
-      <CategoriesSkeleton/>
-      <ProductsSkeleton/>
-      <Footer/>
+      <Slider/>
+      <Feature/>
+      <Categories/>
+      <Products/>
+      <Brands/>
       </LayOut>
     
   )

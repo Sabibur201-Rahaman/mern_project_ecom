@@ -8,7 +8,7 @@ import Slider from '../components/product/slider'
 import Feature from '../components/feature/feature'
 import LayOut from '../components/layout/LayOut'
 function HomePage() {
-  const { BrandList, BrandListRequest,SliderListRequest,CategoryListRequest,ListByRemarkRequest} = ProductStore()
+  const {BrandListRequest,SliderListRequest,CategoryListRequest,ListByRemarkRequest} = ProductStore()
   const {FeatureListRequest}=FeatureStore()
 
 

@@ -1,7 +1,15 @@
 import React from 'react'
-
+import FeatureStore from '../../store/FeatureStore'
+import FeaturesSkeleton from './../../skeleton/FeaturesSkeleton';
+const{FeatureList}=FeatureStore
 export default function Feature() {
-  return (
-    <div>Feature</div>
-  )
+    if(FeatureList===null){
+        return<FeaturesSkeleton/>
+    }
+    else{
+        return (
+            <div>Feature</div>
+          )
+    }
+  
 }

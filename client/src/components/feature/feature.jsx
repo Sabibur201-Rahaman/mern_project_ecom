@@ -1,8 +1,9 @@
 import React from "react";
 import FeatureStore from "../../store/FeatureStore";
 import FeaturesSkeleton from "./../../skeleton/FeaturesSkeleton";
-const { FeatureList } = FeatureStore;
 export default function Feature() {
+  const { FeatureList } = FeatureStore();
+
   if (FeatureList === null) {
     return <FeaturesSkeleton />;
   } else {

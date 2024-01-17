@@ -2,11 +2,12 @@ import React from "react";
 import ProductStore from "../../store/ProductStore";
 import BrandsSkeleton from "../../skeleton/BrandsSkeleton";
 import { Link } from "react-router-dom";
+import SliderSkeleton from './../../skeleton/SliderSkeleton';
 export default function Slider() {
   const { SliderList } = ProductStore();
 
   if (SliderList === null) {
-    return <BrandsSkeleton />;
+    return <SliderSkeleton />;
   } else {
     return (
       <div>

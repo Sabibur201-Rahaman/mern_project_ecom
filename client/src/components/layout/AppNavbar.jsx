@@ -4,7 +4,7 @@ import logo from "../../assets/images/plainb-logo.svg"
 import ProductStore from "../../store/ProductStore.js";
 
 const AppNavBar = () => {
-    const {SetSearchKeyword,SearchKeyword}=ProductStore();
+    const {SearchKeyword,SetSearchKeyword}=ProductStore();
 
 
     return (
@@ -55,12 +55,12 @@ const AppNavBar = () => {
                     </div>
                     <div className=" d-lg-flex">
                         <div className="input-group">
-                            <input  onChange={(e)=>SetSearchKeyword(e.target.value)} className="form-control" type="search" placeholder="Search" aria-label="Search" />
-                            {/* <Link to={SearchKeyword.length>0?`/by-keyword/${SearchKeyword}`:`/`} className="btn btn-outline-dark" type="submit"> */}
+                            <input onChange={(e)=>SetSearchKeyword(e.target.value)} className="form-control" type="search" placeholder="Search" aria-label="Search" />
+                            <Link to={SearchKeyword.length>0?`/by-keyword/${SearchKeyword}`:`/`} className="btn btn-outline-dark" type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: 24, height: 24 }}>
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
-                            {/* </Link> */}
+                            </Link>
                         </div>
                         <Link to="/cart" type="button" className="btn ms-2 btn-light position-relative">
                             <i className="bi text-dark bi-bag"></i>

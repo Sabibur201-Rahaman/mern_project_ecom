@@ -414,7 +414,7 @@ const ListByFilterService = async (req) => {
           JoinWithBrandStage,JoinWithCategoryStage,
           UnwindBrandStage,UnwindCategoryStage, ProjectionStage
       ])
-      console.log(data)
+      // console.log(data)
       return {status:"success",data:data}
 
   }catch (e) {

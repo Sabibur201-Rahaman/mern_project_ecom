@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductStore from "../../store/ProductStore";
 import ProductsSkeleton from "../../skeleton/ProductsSkeleton";
 import { useState } from "react";
@@ -9,33 +9,62 @@ function ProductList() {
   const handleRating = (rate) => {
     setRating(rate)
   }
-  const { ListProduct } = ProductStore();
+  const { ListProduct,BrandList,BrandListRequest,CategoryList,CategoryListRequest,ListByFilterRequest} = ProductStore();
+  const [filter,setFilter]=useState({brandID:"",categoryID:"",priceMax:"",priceMin:""})
+  const inputOnChange=(name,value)=>{
+setFilter((data)=>({
+  ...data,
+  [name]:value
+}))
+  }
+useEffect(()=>{
+  (async()=>{
+BrandList===null?await BrandListRequest():null
+CategoryList===null?await CategoryListRequest():null
+let isEveryFilterPropertyEmpty=Object.values(filter).every(value=>value==='');
+!isEveryFilterPropertyEmpty?await ListByFilterRequest(filter):null
+  })()
+},[filter])
+
   return (
     <div className="container mt-2">
       <div className="row">
         <div className="col-md-3 p-2">
           <div className="card vh-100 p-3 shadow-sm">
             <label className="form-label mt-3">Brands</label>
-            <select className="form-control form-select">
+            <select value={filter.brandID} onChange={(e)=>{inputOnChange('brandID',e.target.value)}} className="form-control form-select">
               <option value="">Choose Brand</option>
+              {BrandList!==null?(
+                BrandList.map((item,i)=>{
+                  return(<option value={item['_id']}>{item['brandName']}</option>)
+                })
+              ):<option></option>}
             </select>
             <label className="form-label mt-3">Categories</label>
-            <select className="form-control form-select">
+            <select value={filter.categoryID} onChange={(e)=>{inputOnChange('categoryID',e.target.value)}} className="form-control form-select">
               <option value="">Choose Category</option>
+              {CategoryList!==null?(
+                CategoryList.map((item,i)=>{
+                  return(<option value={item['_id']}>{item['categoryName']}</option>)
+                })
+              )
+              :<option></option>}
             </select>
-            <label className="form-label mt-3">Maximum Price ${}</label>
+            <label  className="form-label mt-3">Maximum Price ${filter.priceMax}</label>
             <input
+            value={filter.priceMax} onChange={(e)=>{inputOnChange('priceMax',e.target.value)}}
               min={0}
-              max={1000000}
-              step={1000}
+              max={1000}
+              step={10}
               type="range"
               className="form-range"
             />
-            <label className="form-label mt-3">Minimum Price ${}</label>
+            <label  className="form-label mt-3">Minimum Price ${filter.priceMin}</label>
             <input
+            value={filter.priceMin} onChange={(e)=>{inputOnChange('priceMin',e.target.value)}}
               min={0}
-              max={1000000}
-              step={1000}
+              max={1000}
+              step={10}
               type="range"
               className="form-range"
             />

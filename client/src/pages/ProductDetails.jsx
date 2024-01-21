@@ -12,7 +12,7 @@ function ProductDetails() {
   useEffect(() => {
     (async () => {
       await DetailListRequest(id);
-      await ReviewListRequest();
+      await ReviewListRequest(id);
      BrandList===null?await BrandListRequest():null
     })();
   }, []);

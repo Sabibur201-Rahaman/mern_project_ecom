@@ -276,7 +276,7 @@ const DetailsService = async (req) => {
 
 const ListByKeywordService = async (req) => {
   try {
-    console.log(req);
+    // console.log(req);
     let SearchRegex = { $regex: req.params.Keyword, $options: "i" };
     let SearchParams = [{ title: SearchRegex }, { shortDes: SearchRegex }];
     let SearchQuery = { $or: SearchParams };
@@ -318,7 +318,7 @@ const ListByKeywordService = async (req) => {
       UnwindCategoryStage,
       ProjectionStage,
     ]);
-    console.log(data);
+    // console.log(data);
     return { status: "success", data: data };
   } catch (e) {
     return { status: "fail", data: e }.toString();
@@ -343,7 +343,7 @@ const ReviewListService = async (req) => {
     };
 
     let data = await ReviewModel.find();
-console.log(data)
+// console.log(data)
     return { status: "success", data: data };
   } catch (e) {
     return { status: "fail", data: e }.toString();
@@ -359,6 +359,7 @@ const CreateReviewService = async (req) => {
       des: reqBody["des"],
       rating: reqBody["rating"],
     });
+    console.log("revielist::",data)
     return { status: "success", data: data };
   } catch (e) {
     return { status: "fail", data: e }.toString();

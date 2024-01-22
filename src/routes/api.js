@@ -21,7 +21,6 @@ router.get('/ProductListBySmilier/:CategoryID',ProductController.ProductListBySm
 router.get('/ProductListByKeyword/:Keyword',ProductController.ProductListByKeyword)
 router.get('/ProductListByRemark/:Remark',ProductController.ProductListByRemark)
 router.get('/ProductDetails/:ProductID',ProductController.ProductDetails)
-router.get('/ProductReviewList/:ProductID',ProductController.ProductReviewList)
 router.post('/ProductListByFilter',ProductController.ProductListByFilter)
 
 
@@ -63,10 +62,12 @@ router.post('/PaymentIPN/:trxID',InvoiceController.PaymentIPN)
 
 //Features
 router.get('/FeatureList',FeaturesController.FeatureList)
+router.get('/LegalDetails/:type',FeaturesController.LegalDetails)
 
 //Review
 
 router.post('/CreateReview',AuthVerification,ProductController.CreateReview)
+router.get('/ProductReviewList/:ProductID',ProductController.ProductReviewList)
 
 
 module.exports=router;

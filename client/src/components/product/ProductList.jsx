@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
+import "./App.css";
 import ProductStore from "../../store/ProductStore";
 import ProductsSkeleton from "../../skeleton/ProductsSkeleton";
 import { useState } from "react";
 import { Rating } from "react-simple-star-rating";
+import { CiStar } from "react-icons/ci";
+import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 function ProductList() {
-  const [rating, setRating] = useState(0);
-  const handleRating = (rate) => {
-    setRating(rate);
-  };
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
   const {
     ListProduct,
     BrandList,
@@ -151,10 +152,31 @@ function ProductList() {
                                 {item["title"]}
                               </p>
                               {price}
-                              <Rating
+                              {/* <Rating
                                 onClick={handleRating}
                                 initialValue={rating}
-                              />
+                              /> */}
+                              {/* <FontAwesomeIcon icon="fa-sharp fa-regular fa-star" /> */}
+
+                              {/* <button ><CiStar /></button> */}
+                              {[...Array(5)].map((star, i) => {
+                                const currentRating = i + 1;
+                                return (
+                                  <label>
+                                    <input
+                                      type="radio"
+                                      name="rating"
+                                      value={currentRating}
+                                      onClick={() => setRating(currentRating)}
+                                    />
+                                    <FaStar className="star" size={20}
+                                    color={currentRating<=(hover||rating)?'#ffc107':"#e4e5e9"}
+                                    onMouseEnter={()=>setHover(currentRating)}
+                                    onMouseLeave={()=>setHover(null)}
+                                    />
+                                  </label>
+                                );
+                              })}
                             </div>
                           </Link>
                         </div>

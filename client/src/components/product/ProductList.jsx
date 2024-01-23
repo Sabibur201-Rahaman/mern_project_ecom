@@ -160,7 +160,7 @@ function ProductList() {
 
                               {/* <button ><CiStar /></button> */}
                               {[...Array(5)].map((star, i) => {
-                                const currentRating = i + 1;
+                                const currentRating = i+1;
                                 return (
                                   <label>
                                     <input
@@ -177,6 +177,7 @@ function ProductList() {
                                   </label>
                                 );
                               })}
+                              
                             </div>
                           </Link>
                         </div>

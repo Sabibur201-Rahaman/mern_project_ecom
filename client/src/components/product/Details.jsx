@@ -22,7 +22,7 @@ function Details() {
       setQty((qty) => qty - 1);
     }
   };
-  console.log(DetailList);
+  // console.log(DetailList);
   if (DetailList === null) {
     return <DetailsSkeleton />;
   } else {

@@ -10,7 +10,6 @@ const Products = () => {
   const handleRating = (rate) => {
     setRating(rate)
   }
-console.log(rating)
   const { ListByRemark, ListByRemarkRequest } = ProductStore();
   return (
     <div className="section">

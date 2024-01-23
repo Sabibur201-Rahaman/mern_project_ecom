@@ -2,8 +2,10 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import logo from "../../assets/images/plainb-logo.svg"
 import ProductStore from "../../store/ProductStore.js";
+import UserStore from '../../store/UserStore.js';
 
 const AppNavBar = () => {
+    const{isLogin}=UserStore()
     const {SearchKeyword,SetSearchKeyword}=ProductStore();
 
 
@@ -68,8 +70,17 @@ const AppNavBar = () => {
                         <Link to="/wish" type="button" className="btn ms-2 btn-light d-flex">
                             <i className="bi text-dark bi-heart"></i>
                         </Link>
-                        <Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Profile</Link>
-                        <Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Logout</Link>
+                        {
+                            isLogin()?(<><Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Logout</Link>
+                            <Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Profile</Link>
+                            </>
+                            ):(<Link type="button" className="btn ms-3 btn-success d-flex" to="/login">Login</Link>
+                            )
+                        }
+                        {/* <Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Logout</Link>
+                        <Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Profile</Link> */}
+                        {/* <Link type="button" className="btn ms-3 btn-success d-flex" to="/login">Login</Link> */}
+
                     </div>
                 </div>
             </nav>

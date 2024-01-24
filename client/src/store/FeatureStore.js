@@ -8,7 +8,8 @@ FeatureListRequest:async()=>{
     if(res.data['status']==="success"){
         set({FeatureList:res.data['data']})
     }
-}
+},
+
 }))
 
 export default FeatureStore

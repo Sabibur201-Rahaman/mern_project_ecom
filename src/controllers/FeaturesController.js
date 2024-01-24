@@ -1,4 +1,4 @@
-const {FeaturesListService}=require('../services/FeaturesServices')
+const {FeaturesListService,LegalDetailsService}=require('../services/FeaturesServices')
 
 exports.FeatureList=async(req,res)=>{
     const result=await FeaturesListService(req)

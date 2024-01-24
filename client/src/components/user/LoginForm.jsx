@@ -14,6 +14,7 @@ function LoginForm() {
       toast.error('valid EmailAddress is required')
     }else{
       let res=await UserOtpRequest(email)
+      console.log(res)
       res?navigate('/otp'):toast.error('something went wrong')
 
     }

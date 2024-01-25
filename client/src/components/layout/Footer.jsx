@@ -16,7 +16,7 @@ const Footer = () => {
                                 <Link className="nav-link" to="/refund">Refund Policy</Link>
                             </p>
                             <p className="my-2">
-                                <Link className="nav-link" to="/privacy">Refund Policy</Link>
+                                <Link className="nav-link" to="/privacy">privacy Policy</Link>
                             </p>
                             <p className="my-2">
                                 <Link className="nav-link" to="/terms">Terms</Link>
@@ -25,7 +25,7 @@ const Footer = () => {
                         <div className="col-md-4">
                             <h1 className="bodyMedium">Information</h1>
                             <p className="my-2">
-                                <Link className="nav-link" to="/how to buy">How to buy</Link>
+                                <Link className="nav-link" to="/howtobuy">How to buy</Link>
                             </p>
                             <p className="my-2">
                                 <Link className="nav-link" to="/contact">Contact</Link>

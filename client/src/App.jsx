@@ -6,10 +6,15 @@ import ProductByBrand from "./pages/ProductByBrand";
 import ProductByCategory from "./pages/ProductByCategory";
 import ProductByKeyword from "./pages/ProductByKeyword";
 import ProductDetails from "./pages/ProductDetails";
-import LoginForm from "./components/user/LoginForm";
-import OtpForm from "./components/user/OtpForm";
 import LoginPage from "./pages/LoginPage";
 import OtpPage from "./pages/OtpPage";
+import AboutPage from "./pages/AboutPage";
+import RefundPage from './pages/RefundPage';
+import TermsPage from './pages/TermsPage';
+import PrivacyPage from './pages/PrivacyPage';
+import ComplainPage from './pages/ComplainPage';
+import ContactPage from './pages/ContactPage';
+import HowToBuyPage from './pages/HowToBuyPage';
 
 function App() {
   return (
@@ -25,6 +30,13 @@ function App() {
 
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/otp" element={<OtpPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/complain" element={<ComplainPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/howtobuy" element={<HowToBuyPage />} />
+          <Route path="/refund" element={<RefundPage />} />
         </Routes>
       </BrowserRouter>
     </div>

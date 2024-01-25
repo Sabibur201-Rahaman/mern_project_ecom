@@ -35,7 +35,7 @@ function App() {
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/complain" element={<ComplainPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/howtobuy" element={<HowToBuyPage />} />
+          <Route path="/howtobuy" element={<HowToBuyPage />} />  //it created some issue with link path but solved the issues
           <Route path="/refund" element={<RefundPage />} />
         </Routes>
       </BrowserRouter>

@@ -10,8 +10,8 @@ const FeatureStore = create((set) => ({
     }
   },
   LegalDetails: null,
-  LegalDetailsRequest: async (type) => {
-    set({ LegalDetails: null });
+  LegalDetailsRequest: async (type) => {    
+    set({ LegalDetails: null });  //Legal Detail list is to be null due to button case
 
     let res = await axios.get(`/api/v1/LegalDetails/${type}`);
     if (res.data["status"] === "success") {

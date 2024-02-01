@@ -34,10 +34,10 @@ const VerifyOTPService = async (req) => {
 
             // User ID Read
             let user_id=await UserModel.find({email:email,otp:otp}).select('_id');
-                console.log(user_id)
+                // console.log(user_id)
             // User Token Create
             let token=EncodeToken(email,user_id[0]['_id'].toString())  //  query
-            console.log("token",token)
+            // console.log("token",token)
 
             // OTP Code Update To 0
             await UserModel.updateOne({email:email},{$set:{otp:"0"}})
@@ -62,9 +62,10 @@ const SaveProfileService = async (req) => {
     // let reqBody=req.body
     // reqBody.userID=user_id
     const user = await UserModel.create(req.body);
-    console.log(user)
+    console.log('userProfile::',user)
     return { status: "success", message: "Profile Save Success" }
    }catch (e) {
+    console.log('error user::',e)
        return {status:"fail", message:" there is Something Went Wrong"}
    }
 }
@@ -78,22 +79,32 @@ const UpdateProfileService = async (req) => {
         }
 
         const updatedUser = await UserModel.findOneAndUpdate(
-            { _id: req.params.id },
+            { _id: req.params.id},
             req.body, // Use the entire request body for the update
             { new: true }
         );
+        console.log(updatedUser)
 
         if (updatedUser) {
             return { status: "success", message: "Profile Save Success", user: updatedUser };
-        } else {
+        } else {updatedUser
             return { status: "fail", message: "No changes applied" };
         }
     } catch (e) {
-        console.error(e);
+        console.log(e);
         return { status: "fail", message: "Something went wrong" };
     }
 };
 
+const GetUserEmailService = async (req) => {
+    try {
+        const result = await UserModel.findOne({email:req.params.email})
+        // let result= await UserModel.find({userID:id})
+        return {status:"success", data:result}
+    }catch (e) {
+        return {status:"fail", message:"Something Went Wrong"}
+    }
+}
 const ReadProfileService = async (req) => {
     try {
         const result = await UserModel.findById(req.params.id);
@@ -114,6 +125,7 @@ module.exports={
     VerifyOTPService,
     SaveProfileService,
     ReadProfileService,
-    UpdateProfileService
+    UpdateProfileService,
+    GetUserEmailService
 }
 

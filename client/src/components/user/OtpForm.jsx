@@ -11,7 +11,7 @@ const OtpForm = () => {
     let navigate=useNavigate();
 
     const onFormSubmit=async ()=>{
-        console.log(onFormSubmit)
+        // console.log(onFormSubmit)
         if(ValidationHelper.IsEmpty(OTPFormData.otp)){
             toast.error("Valid PIN Required")
         }else {

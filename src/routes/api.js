@@ -33,6 +33,7 @@ router.get('/UserLogout',UserController.UserLogout)
 router.post('/CreateProfile',AuthVerification,UserController.CreateProfile)
 router.patch('/UpdateProfile/:id',AuthVerification,UserController.UpdateProfile)
 router.get('/ReadProfile/:id',AuthVerification,UserController.ReadProfile)
+router.get('/UserEmail/:email',UserController.UserEmail)
 
 //wish
 router.post('/SaveWishList',AuthVerification,WishListController.SaveWishList)

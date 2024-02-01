@@ -7,8 +7,13 @@ import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import Lottie from "lottie-react";
 import Review from "./Review.jsx";
+import CartSubmitButton from "../layout/CartSubmitButton.jsx";
+import CartStore from "../../store/CartStore.js";
 function Details() {
   const { DetailList, ReviewList } = ProductStore();
+  const { CartFormChange, CartForm,CartList ,CartSaveRequest, CartListRequest } =
+    CartStore();
+console.log(CartList)
   const [qty, setQty] = useState(1);
 
   const [reviewButton, setReviewButton] = useState(false);
@@ -22,6 +27,14 @@ function Details() {
       setQty((qty) => qty - 1);
     }
   };
+  const AddCart = async (productID) => {
+    let res = await CartSaveRequest(CartForm, productID, quantity);
+    if (res) {
+      toast.success("Cart Item Added");
+      await CartListRequest();
+    }
+  };
+
   // console.log(DetailList);
   if (DetailList === null) {
     return <DetailsSkeleton />;
@@ -87,8 +100,15 @@ function Details() {
                 <div className="row">
                   <div className="col-4 p-2">
                     <label className="bodySmal">Size</label>
-                    <select className="form-control my-2 form-select">
+                    <select
+                      value={CartForm.size}
+                      onChange={(e) => {
+                        CartFormChange("size", e.target.value);
+                      }}
+                      className="form-control my-2 form-select"
+                    >
                       <option value="">Size</option>
+
                       {DetailList[0]["details"]["size"]
                         .split(",")
                         .map((item, i) => {
@@ -98,7 +118,13 @@ function Details() {
                   </div>
                   <div className="col-4 p-2">
                     <label className="bodySmal">Color</label>
-                    <select className="form-control my-2 form-select">
+                    <select
+                      value={CartForm.color}
+                      onChange={(e) => {
+                        CartFormChange("color", e.target.value);
+                      }}
+                      className="form-control my-2 form-select"
+                    >
                       <option value="">Color</option>
                       {DetailList[0]["details"]["color"]
                         .split(",")
@@ -131,9 +157,14 @@ function Details() {
                     </div>
                   </div>
                   <div className="col-4 p-2">
-                    <button className="btn w-100 btn-success">
-                      Add to Cart
-                    </button>
+                    <CartSubmitButton
+                      onClick={async () => {
+                        console.log(CartList)
+                        await AddCart(CartList[0]["_id"]);
+                      }}
+                      className="btn w-100 btn-success"
+                      text="Add to Cart"
+                    />
                   </div>
                   <div className="col-4 p-2">
                     <button className="btn w-100 btn-success">
@@ -182,15 +213,17 @@ function Details() {
                     Review
                   </button>
                   {reviewButton === true && <Review />}
-                  {specifyButton === true && <div
-                  className="tab-pane fade show active"
-                  id="Speci-tab-pane"
-                  role="tabpanel"
-                  arialabelledby="Speci-tab"
-                  tabIndex="0"
-                >
-                  {parse(DetailList[0]["details"]["des"])}
-                </div>}
+                  {specifyButton === true && (
+                    <div
+                      className="tab-pane fade show active"
+                      id="Speci-tab-pane"
+                      role="tabpanel"
+                      arialabelledby="Speci-tab"
+                      tabIndex="0"
+                    >
+                      {parse(DetailList[0]["details"]["des"])}
+                    </div>
+                  )}
                 </li>
               </ul>
               {/* <div className="tab-content" id="myTabContent">

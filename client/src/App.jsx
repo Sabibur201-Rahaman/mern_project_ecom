@@ -15,11 +15,12 @@ import PrivacyPage from './pages/PrivacyPage';
 import ComplainPage from './pages/ComplainPage';
 import ContactPage from './pages/ContactPage';
 import HowToBuyPage from './pages/HowToBuyPage';
+import ProfileForm from "./components/user/ProfileForm";
 
 function App() {
   return (
     <div>
-      <h2>hello this is frontend development</h2>
+      {/* <h2>hello this is frontend development</h2> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -30,12 +31,13 @@ function App() {
 
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/otp" element={<OtpPage />} />
+          <Route path="/profile" element={<ProfileForm />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/complain" element={<ComplainPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/howtobuy" element={<HowToBuyPage />} />  //it created some issue with link path but solved the issues
+          <Route path="/howtobuy" element={<HowToBuyPage />} /> 
           <Route path="/refund" element={<RefundPage />} />
         </Routes>
       </BrowserRouter>

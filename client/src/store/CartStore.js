@@ -28,9 +28,9 @@ const CartStore = create((set) => ({
       // console.log(headers.userId)
       set({ isCartSubmit: true });
       PostBody.productID = productID;
-      PostBody.qty = quantity;
+      PostBody.quantity = quantity;
       let res = await axios.post(`http://localhost:5000/api/v1/CreateCartList/${headers.userId}`,PostBody,token);
-      console.log(res)
+      console.log(res.data)
       return res.data["status"] === "success";
     } catch (e) {
       console.log(e)

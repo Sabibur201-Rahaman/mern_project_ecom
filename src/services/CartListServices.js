@@ -87,7 +87,7 @@ const SaveCartListService = async (req) => {
     // Log the error for debugging purposes
     console.error("Error in SaveCartListService:", e);
 
-    return { status: "fail", message: "Something went wrong" };
+    return { status: "fails", message: "Something went wrong" };
   }
 };
 

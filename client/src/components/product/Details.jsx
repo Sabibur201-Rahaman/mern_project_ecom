@@ -9,11 +9,21 @@ import Lottie from "lottie-react";
 import Review from "./Review.jsx";
 import CartSubmitButton from "../layout/CartSubmitButton.jsx";
 import CartStore from "../../store/CartStore.js";
+import toast from "react-hot-toast";
+import WishStore from "../../store/WishStore.js";
+import WishSubmitButton from "../layout/WishSubmitButton.jsx";
 function Details() {
   const { DetailList, ReviewList } = ProductStore();
-  const { CartFormChange, CartForm,CartList ,CartSaveRequest, CartListRequest } =
-    CartStore();
-console.log(CartList)
+  const {
+    CartFormChange,
+    CartForm,
+    CartList,
+    CartSaveRequest,
+    CartListRequest,
+  } = CartStore();
+  console.log(CartList);
+  const { WishSaveRequest, WishListRequest } = WishStore;
+  console.log(WishSaveRequest)
   const [qty, setQty] = useState(1);
 
   const [reviewButton, setReviewButton] = useState(false);
@@ -27,8 +37,39 @@ console.log(CartList)
       setQty((qty) => qty - 1);
     }
   };
+
+  // const AddWish = async (productID) => {
+  //   let res = await WishSaveRequest(productID);
+  //   console.log(res)
+  //   if (res) {
+  //     toast.success("Wish Item Added");
+  //     await WishListRequest();
+  //   }
+  // };
+
+  const AddWish = async (productID) => {
+    try {
+      let res = await WishSaveRequest(productID);
+      console.log(res);
+  
+      if (res) {
+        toast.success("Wish Item Added");
+        await WishListRequest();
+      } else {
+        // Handle the case where WishSaveRequest didn't succeed
+        toast.error("Failed to add Wish Item");
+      }
+    } catch (error) {
+      // Handle errors from WishSaveRequest or WishListRequest
+      console.error("Error:", error.message);
+      toast.error("An error occurred");
+    }
+  };
+  
+
   const AddCart = async (productID) => {
-    let res = await CartSaveRequest(CartForm, productID, quantity);
+    let res = await CartSaveRequest(CartForm, productID);
+    console.log(res)
     if (res) {
       toast.success("Cart Item Added");
       await CartListRequest();
@@ -159,17 +200,22 @@ console.log(CartList)
                   <div className="col-4 p-2">
                     <CartSubmitButton
                       onClick={async () => {
-                        console.log(CartList)
-                        await AddCart(CartList[0]["_id"]);
+                        await AddCart(DetailList[0]["_id"]);
                       }}
                       className="btn w-100 btn-success"
                       text="Add to Cart"
                     />
                   </div>
+
                   <div className="col-4 p-2">
-                    <button className="btn w-100 btn-success">
-                      Add to Wish
-                    </button>
+                  <WishSubmitButton
+                      onClick={async () => {
+                        await AddWish(DetailList[0]["_id"]);
+                      }}
+                      className="btn w-100 btn-success"
+                      text="Add to wish"
+                    />
+
                   </div>
                 </div>
               </div>

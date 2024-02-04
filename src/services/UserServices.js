@@ -38,11 +38,11 @@ const VerifyOTPService = async (req) => {
             // User Token Create
             let token=EncodeToken(email,user_id[0]['_id'].toString())  //  query
             // console.log("token",token)
-
+            let id=user_id[0]
             // OTP Code Update To 0
             await UserModel.updateOne({email:email},{$set:{otp:"0"}})
 
-            return {status:"success", message:"Valid OTP",token:token}
+            return {status:"success", message:"Valid OTP",token:token,id:id}
 
         }
         else{
@@ -69,31 +69,55 @@ const SaveProfileService = async (req) => {
        return {status:"fail", message:" there is Something Went Wrong"}
    }
 }
+// const UpdateProfileService = async (req) => {
+//     try {
+//         // Assuming req.body contains the filter criteria and the update fields
+//         const user = await UserModel.findById(req.params.id);
+
+//         if (!user) {
+//             return { status: "fail", message: "No matching user found" };
+//         }
+
+//         const updatedUser = await UserModel.findOneAndUpdate(
+//             {_id: req.params.email},
+//             req.body, // Use the entire request body for the update
+//             { new: true }
+//         );
+
+//         if (updatedUser) {
+//             return { status: "success", message: "Profile Save Success", user: updatedUser };
+//         } else {updatedUser
+//             return { status: "fail", message: "No changes applied" };
+//         }
+//     } catch (e) {
+//         console.log(e);
+//         return { status: "fail", message: "Something went wrong" };
+//     }
+// };
 const UpdateProfileService = async (req) => {
     try {
         // Assuming req.body contains the filter criteria and the update fields
-        const user = await UserModel.findById(req.params.id);
+        const user = await UserModel.findOne({ email: req.params.email });
 
         if (!user) {
             return { status: "fail", message: "No matching user found" };
         }
 
         const updatedUser = await UserModel.findOneAndUpdate(
-            { _id: req.params.id},
+            { email: req.params.email },
             req.body, // Use the entire request body for the update
             { new: true }
         );
-        console.log(updatedUser)
 
         if (updatedUser) {
             return { status: "success", message: "Profile Save Success", user: updatedUser };
-        } else {updatedUser
+        } else {
             return { status: "fail", message: "No changes applied" };
         }
     } catch (e) {
         console.log(e);
-        return { status: "fail", message: "Something went wrong" };
-    }
+        return { status: "fail", message: "Something went wrong" };
+    }
 };
 
 const GetUserEmailService = async (req) => {

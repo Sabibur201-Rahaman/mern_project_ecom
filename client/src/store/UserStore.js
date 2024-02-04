@@ -1,6 +1,6 @@
 import create from "zustand";
 import axios from "axios";
-import { getEmail, setEmail, unauthorized } from "../utility/Utility";
+import { GetUserID, SetUserID, getEmail, getToken, setEmail, unauthorized } from "../utility/Utility";
 import Cookies from "js-cookie";
 const UserStore = create((set) => ({
   isLogin: () => {
@@ -30,7 +30,7 @@ const UserStore = create((set) => ({
   UserOtpRequest: async (email) => {
     set({ isFormSubmit: true });
     let res = await axios.get(`/api/v1/UserOTP/${email}`);
-
+    console.log(res)
     setEmail(email);
     set({ isFormSubmit: false });
 
@@ -50,6 +50,8 @@ const UserStore = create((set) => ({
     let email = getEmail();
 
     let res = await axios.get(`/api/v1/VerifyLogin/${email}/${otp}`);
+    SetUserID(res.data.id._id)
+    
     set({ isFormSubmit: false });
 
     return res.data["status"] === "success";
@@ -83,8 +85,13 @@ const UserStore = create((set) => ({
   ProfileDetails: null,
   ProfileDetailsRequest: async () => {
     try {
-      let res = await axios.get(`http://localhost:5000/api/v1/ReadProfile/`);
-      console.log(res)
+    //   const headers = {
+    //     'token': token,
+    //     'user_id': GetUserID(),
+    //     'Content-Type': 'application/json',
+    // };
+      let res = await axios.get("/api/v1/ReadProfile");
+      // console.log(res)
       if (res.data["data"].length > 0) {
         set({ ProfileDetails: res.data["data"][0] });
         set({ ProfileForm: res.data["data"][0] });
@@ -99,26 +106,41 @@ userEmailDetail:null,
   UserEmailRequest: async (email) => {
     try {
       let res = await axios.get(`http://localhost:5000/api/v1/UserEmail/${email}`);
-      console.log(res.data.data)
+      console.log(res)
       if (res.data.status==='success') {
         set({ userEmailDetail: res.data.data });
       } else {
-        set({ userEmailDetail: [] });
+        set({ ProfileDetails: [] });
       }
     } catch (e) {
       // unauthorized(e.response.status);
     }
   },
 
-  ProfileSaveRequest: async (PostBody,email) => {
-    try {
+//   ProfileSaveRequest: async (PostBody,email) => {
+//     try {
+//       set({ userEmailDetail: null });
+//       let res = await axios.patch(`/api/v1/UpdateProfile`,PostBody,{email});
+//       console.log(res.data.data)
+//       return res.data["status"] === "success";
+//     } catch (e) {
+//       // unauthorized(e.response.status);
+//     }
+//   },
+
+ProfileSaveRequest: async (PostBody, email) => {
+  try {
       set({ userEmailDetail: null });
-      let res = await axios.post(`http://localhost:5000/api/v1/UpdateProfile/${email}`, PostBody);
+
+      let res = await axios.patch(`/api/v1/UpdateProfile`, { ...PostBody, email });
+      console.log(res.data.data);
       return res.data["status"] === "success";
-    } catch (e) {
-      unauthorized(e.response.status);
-    }
-  },
+  } catch (e) {
+      // Handle errors here, for example:
+      // unauthorized(e.response.status);
+  }
+}
+
 }));
 
 export default UserStore;

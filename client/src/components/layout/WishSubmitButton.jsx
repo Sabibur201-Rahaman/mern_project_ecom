@@ -1,9 +1,11 @@
-import React, { Children } from 'react'
-import CartStore from '../../store/CartStore';
+import React from 'react'
+import WishStore from '../../store/WishStore';
 
-function CartSubmitButton(props) {
-    let { isCartSubmit } = CartStore();
-    if (isCartSubmit === false) {
+
+function WishSubmitButton(props) {
+    let { isWishSubmit } = WishStore();
+
+    if (isWishSubmit === false) {
       return (
         <button onClick={props.onClick} type="submit" className={props.className}>
           {props.text}
@@ -21,4 +23,4 @@ function CartSubmitButton(props) {
   }
 
 
-export default CartSubmitButton
+export default WishSubmitButton

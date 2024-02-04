@@ -17,7 +17,6 @@ function LoginForm() {
     } else {
       // Store email in cookie
       Cookies.set("email", email);
-
       let res = await UserOtpRequest(email);
       console.log(res);
       res ? navigate("/otp") : toast.error("Something went wrong");

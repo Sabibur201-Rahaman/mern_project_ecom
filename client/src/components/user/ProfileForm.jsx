@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 const ProfileForm = () => {
   const tokenValue = Cookies.get("token");
   if (tokenValue) {
-    console.log("Token:", tokenValue);
+    // console.log("Token:", tokenValue);
   } else {
     console.log("Token not found in cookies.");
   }
@@ -22,9 +22,11 @@ const ProfileForm = () => {
   } = UserStore();
 
   const email=Cookies.get('email')
+  // console.log(email)
   useEffect(() => {
     (async () => {
       await ProfileDetailsRequest();
+      await ProfileSaveRequest()
       await UserEmailRequest(email);
     })();
   }, []);

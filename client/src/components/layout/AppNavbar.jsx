@@ -1,21 +1,35 @@
-import React from "react";
-import { Link,useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/plainb-logo.svg";
 import ProductStore from "../../store/ProductStore.js";
 import UserStore from "../../store/UserStore.js";
 import UserSubmitButton from "./UserSubmitBtn.jsx";
+import CartStore from "../../store/CartStore.js";
+import WishStore from "../../store/WishStore.js";
 
 const AppNavBar = () => {
-    const navigate=useNavigate()
-  const { isLogin,UserLogoutRequest } = UserStore();
-
+  const navigate = useNavigate();
+  const { isLogin, UserLogoutRequest } = UserStore();
+  const { CartCount, CartListRequest } = CartStore();
+  const { WishCount, WishListRequest } = WishStore();
   const { SearchKeyword, SetSearchKeyword } = ProductStore();
-const onLogOut=async()=>{
-const res=await UserLogoutRequest()
-sessionStorage.clear()
-localStorage.clear()
-navigate('/')
-}
+  console.log(WishCount)
+  console.log(CartCount)
+
+  const onLogOut = async () => {
+    const res = await UserLogoutRequest();
+    sessionStorage.clear();
+    localStorage.clear();
+    navigate("/");
+  };
+  useEffect(() => {
+    (async () => {
+      if (isLogin()) {
+        await CartListRequest();
+        await WishListRequest();
+      }
+    })();
+  }, []);
   return (
     <>
       <div className="container-fluid text-white p-2 bg-success">
@@ -106,7 +120,7 @@ navigate('/')
                 </svg>
               </Link>
             </div>
-            <Link
+            {/* <Link
               to="/cart"
               type="button"
               className="btn ms-2 btn-light position-relative"
@@ -119,10 +133,33 @@ navigate('/')
               className="btn ms-2 btn-light d-flex"
             >
               <i className="bi text-dark bi-heart"></i>
-            </Link>
+            </Link> */}
             {isLogin() ? (
               <>
-                <UserSubmitButton onClick={onLogOut}
+                <Link
+                  to="/cart"
+                  type="button"
+                  className="btn ms-2 btn-light position-relative"
+                >
+                  <i className="bi text-dark bi-bag"></i>
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                    {CartCount}
+                    <span className="visually-hidden">unread messages</span>
+                  </span>
+                </Link>
+                <Link
+                  to="/wish"
+                  type="button"
+                  className="btn ms-4 btn-light position-relative"
+                >
+                  <i className="bi text-dark bi-heart"></i>
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
+                    {WishCount}
+                    <span className="visually-hidden">unread messages</span>
+                  </span>
+                </Link>
+                <UserSubmitButton
+                  onClick={onLogOut}
                   text="Logout"
                   className="btn ms-3 btn-success d-flex"
                 />

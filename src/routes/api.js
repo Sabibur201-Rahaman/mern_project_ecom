@@ -36,7 +36,7 @@ router.get('/ReadProfile/:id',AuthVerification,UserController.ReadProfile)
 router.get('/UserEmail/:email',UserController.UserEmail)
 
 //wish
-router.post('/SaveWishList',AuthVerification,WishListController.SaveWishList)
+router.post('/SaveWishList',WishListController.SaveWishList)
 router.delete('/RemoveWishList',AuthVerification,WishListController.RemoveWishList)
 router.get('/WishList',AuthVerification,WishListController.WishList)
 

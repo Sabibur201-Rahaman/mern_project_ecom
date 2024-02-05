@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import ProductImage from "./ProductImage.jsx";
 import ProductStore from "../../store/ProductStore.js";
 import DetailsSkeleton from "../../skeleton/DetailSkeleton";
@@ -21,55 +21,32 @@ function Details() {
     CartSaveRequest,
     CartListRequest,
   } = CartStore();
-  console.log(CartList);
-  const { WishSaveRequest, WishListRequest } = WishStore;
-  console.log(WishSaveRequest)
-  const [qty, setQty] = useState(1);
+  const { WishSaveRequest, WishListRequest } = WishStore();
+  const [quantity, SetQuantity] = useState(1);
 
   const [reviewButton, setReviewButton] = useState(false);
   const [specifyButton, setSpecifyButton] = useState(true);
 
   const incrementQty = () => {
-    setQty((qty) => qty + 1);
+    SetQuantity((quantity) => quantity + 1);
   };
   const decrementQty = () => {
-    if (qty > 1) {
-      setQty((qty) => qty - 1);
+    if (quantity > 1) {
+      SetQuantity((qty) => quantity - 1);
     }
   };
 
-  // const AddWish = async (productID) => {
-  //   let res = await WishSaveRequest(productID);
-  //   console.log(res)
-  //   if (res) {
-  //     toast.success("Wish Item Added");
-  //     await WishListRequest();
-  //   }
-  // };
-
-  const AddWish = async (productID) => {
-    try {
-      let res = await WishSaveRequest(productID);
-      console.log(res);
-  
-      if (res) {
-        toast.success("Wish Item Added");
-        await WishListRequest();
-      } else {
-        // Handle the case where WishSaveRequest didn't succeed
-        toast.error("Failed to add Wish Item");
-      }
-    } catch (error) {
-      // Handle errors from WishSaveRequest or WishListRequest
-      console.error("Error:", error.message);
-      toast.error("An error occurred");
+  const AddWish = async (productID,postBody) => {
+    let res = await WishSaveRequest(productID,postBody);
+    if (res) {
+      toast.success("Wish Item Added");
+      await WishListRequest();
     }
   };
-  
+
 
   const AddCart = async (productID) => {
-    let res = await CartSaveRequest(CartForm, productID);
-    console.log(res)
+    let res = await CartSaveRequest(CartForm, productID, quantity);
     if (res) {
       toast.success("Cart Item Added");
       await CartListRequest();
@@ -184,7 +161,7 @@ function Details() {
                         -
                       </button>
                       <input
-                        value={qty}
+                        value={quantity}
                         type="text"
                         className="form-control bg-light text-center"
                         readOnly
@@ -208,14 +185,13 @@ function Details() {
                   </div>
 
                   <div className="col-4 p-2">
-                  <WishSubmitButton
+                    <WishSubmitButton
                       onClick={async () => {
                         await AddWish(DetailList[0]["_id"]);
                       }}
                       className="btn w-100 btn-success"
                       text="Add to wish"
                     />
-
                   </div>
                 </div>
               </div>
